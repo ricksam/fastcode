@@ -53,7 +53,8 @@ namespace FastCode.helpers
 
         private static string ReplaceFieldName(string line, string value)
         {
-            if (line.Contains("[field](lower)") || line.Contains("[field.name](lower)")) {
+            if (line.Contains("[field](lower)") || line.Contains("[field.name](lower)"))
+            {
                 line = line.Replace("[field](lower)", value.ToLower()).Replace("[field.name](lower)", value.ToLower());
             }
 
@@ -73,7 +74,7 @@ namespace FastCode.helpers
 
         public static string ByEntity(Entity entity, ProjectScheme project, string line)
         {
-            string[] SearchFields = new string[] { "namespace", "entity", "entity.name", "entity.index", "entity.count", "pk", "field", "field.name" };
+            string[] SearchFields = new string[] { "namespace", "entity", "entity.name", "entity.title", "entity.index", "entity.count", "pk", "field", "field.name" };
             while (HasField(line, SearchFields))
             {
                 //,  "field", "field.index", "field.size", "field.count", "pk"
@@ -82,9 +83,13 @@ namespace FastCode.helpers
                 {
                     line = line.Replace("[namespace]", project.name);
                 }
-                else if (existing == "[entity]"|| existing == "[entity.name]")
+                else if (existing == "[entity]" || existing == "[entity.name]")
                 {
                     line = line.Replace("[entity]", entity.name).Replace("[entity.name]", entity.name);
+                }
+                else if (existing == "[entity.title]")
+                {
+                    line = line.Replace("[entity.title]", entity.title);
                 }
                 else if (existing == "[entity.index]")
                 {
@@ -114,7 +119,7 @@ namespace FastCode.helpers
             return line;
         }
 
-        
+
 
         private static string ReplaceByType(TemplateField t_field, string new_line, bool isFirst, bool isLast, string text_replace)
         {
@@ -140,7 +145,8 @@ namespace FastCode.helpers
 
                 string[] template_fields = template.fields.Select(q => q.name).ToArray();
 
-                do {
+                do
+                {
                     while (HasField(new_line, SearchFields))
                     {
                         string existing = GetExistingitem(new_line, SearchFields);
@@ -240,14 +246,14 @@ namespace FastCode.helpers
                 }
             }
 
-            
+
             new_lines = ByEntity(entity, project, new_lines);
             return new_lines;
         }
 
         public static string ByEntityList(ProjectScheme project, string line)
         {
-            string[] SearchFields = new string[] { "namespace", "entity", "entity.name", "entity.index", "entity.count", "pk", "field", "field.name" };
+            string[] SearchFields = new string[] { "namespace", "entity", "entity.name", "entity.title", "entity.index", "entity.count", "pk", "field", "field.name" };
             string new_lines = "";
 
             foreach (var entity in project.entities)
@@ -260,9 +266,13 @@ namespace FastCode.helpers
                     {
                         new_line = new_line.Replace("[namespace]", project.name);
                     }
-                    else if (existing == "[entity]"|| existing == "[entity.name]")
+                    else if (existing == "[entity]" || existing == "[entity.name]")
                     {
                         new_line = new_line.Replace("[entity]", entity.name).Replace("[entity.name]", entity.name);
+                    }
+                    else if (existing == "[entity.title]")
+                    {
+                        new_line = new_line.Replace("[entity.title]", entity.title);
                     }
                     else if (existing == "[entity.index]")
                     {
