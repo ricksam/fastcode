@@ -1,0 +1,28 @@
+{
+  "name": "repository",
+  "fields": [
+    {
+      "name": "require.fk",
+      "type": {
+        "fk": "const [field.type] = require(\"../models/[field.type]\")"
+      },
+      "role": {
+        "first": true,
+        "last": true,
+        "outhers": true
+      }
+    },
+    {
+      "name": "populate",
+      "type": {
+        "fk": "                          .populate({path:\"[field](camel)\", model: [field.type]})"
+      },
+      "role": {
+        "first": true,
+        "last": true,
+        "outhers": true
+      }
+    }
+  ],
+  "code": " const [entity] = require(\"../models/[entity]\")\n*[require.fk]\n \n module.exports = class [entity]Repository {\n \n   static async get([pk]) {\n     return await [entity].findById([pk]);\n   }\n \n   static async list() {\n     return await [entity].find({})\n*[populate]\n   }\n \n   static async save(model) {\n     try {\n       if(!model._[pk](camel)){\n         let entity = new [entity](model);\n         await entity.save();\n         model._[pk](camel) = entity.[pk](camel);\n       }else{\n         let entity = await [entity].findById(model._[pk](camel));\n*        entity.[field](camel) = model.[field](camel);\n         await entity.save();\n       }\n       \n       return { success: true, model }\n     } catch (err) {\n       return {\n         status: \"erro de comunicação com o servidor\",\n         err\n       }\n     }\n   }\n \n   static async delete([pk]) {\n     try {\n       await [entity].deleteOne({ _[pk](camel): [pk] })\n       return { success: true }\n     } catch (err) {\n       return {\n         status: \"erro de comunicação com o servidor\",\n         err\n       }\n     }\n   }\n }\n \n"
+}

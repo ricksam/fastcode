@@ -1,0 +1,44 @@
+{
+  "name": "makefile",
+  "roles": [
+    {
+      "template": "model",
+      "command": "node-express\\src\\core\\models\\[entity].js"
+    },
+	{
+      "template": "repository",
+      "command": "node-express\\src\\core\\repositories\\[entity]Repository.js"
+    },
+	{
+      "template": "service",
+      "command": "node-express\\src\\core\\services\\[entity]Service.js"
+    },
+	{
+      "template": "controller",
+      "command": "node-express\\src\\controllers\\[entity]Controller.js"
+    },
+	{
+      "template": "router",
+      "command": "node-express\\src\\routes\\api\\[entity].js"
+    },
+	{
+      "template": "routes.api",
+      "command": "node-express\\src\\routes\\api\\index.js"
+    },
+	{
+      "template": "root",
+      "command": "node-express\\src\\routes\\front\\root.js"
+    },
+	{
+      "template": "header",
+      "command": "node-express\\src\\views\\partials\\header.ejs"
+    },
+	{
+      "template": "view",
+      "command": "node-express\\src\\views\\[entity]\\index.ejs"
+    }
+  ],
+  "project": "D:\\PROJECTS\\RckSoftware\\FastCode\\sample\\WebApplication1.json",
+  "templates": "D:\\PROJECTS\\RckSoftware\\FastCode\\sample\\TemplatesNodeJs",
+  "target": "D:\\PROJECTS\\RckSoftware\\FastCode\\sample\\target"
+}

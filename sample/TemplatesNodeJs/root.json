@@ -1,0 +1,5 @@
+{
+  "name": "root",
+  "fields": [],
+  "code": " const express = require('express')\n const router = express.Router()\n \n const APIUrl = process.env.API_URL || 'http://localhost:3000/api/'\n \n router.get('/', (req, res) => {\n   res.render('home.ejs', { APIUrl })\n })\n \n+router.get('/[entity]', (req, res) => {\n+  res.render('[entity]/index.ejs', { APIUrl })\n^})\n \n module.exports = router\n \n"
+}

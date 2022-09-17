@@ -1,0 +1,43 @@
+{
+  "name": "model",
+  "fields": [
+    {
+      "name": "field.config",
+      "type": {
+        "text": "\t[field](camel):String",
+        "value": "\t[field](camel):Number",
+        "number": "\t[field](camel):Number",
+        "bool": "\t[field](camel):Boolean",
+        "date": "\t[field](camel):Date",
+        "time": "\t[field](camel):String",
+        "file": "\t[field](camel):String",
+        "password": "\t[field](camel):String",
+        "fk": " \t[field](camel):{\n         type: Schema.Types.ObjectId,\n         ref: '[field.type](camel)'\n \t}"
+      },
+      "role": {
+        "first": true,
+        "last": true,
+        "outhers": true
+      }
+    },
+    {
+      "name": "comma",
+      "type": {
+        "number": ",",
+        "value": ",",
+        "text": ",",
+        "bool": ",",
+        "date": ",",
+        "time": ",",
+        "file": ",",
+        "password": ",",
+        "fk": ","
+      },
+      "role": {
+        "first": true,
+        "outhers": true
+      }
+    }
+  ],
+  "code": " const mongoose = require('mongoose')\n const Schema = mongoose.Schema;\n \n const [entity]Schema = Schema({\n*[field.config][comma]\n })\n \n module.exports = mongoose.model('[entity](camel)', [entity]Schema)\n"
+}

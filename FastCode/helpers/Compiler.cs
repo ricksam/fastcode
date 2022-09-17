@@ -77,10 +77,7 @@ namespace FastCode.helpers
                                 continue;
                             }
 
-                            /*string search_code = "[fk.list]";
-                            if (line.Contains(search_code)) {
-                                Log.Text(search_code);
-                            }*/
+                            Log.Process(line, ConsoleColor.Yellow);
 
                             string type = line.Substring(0, 1);
                             string code = line.Remove(0, 1);
@@ -113,6 +110,7 @@ namespace FastCode.helpers
                     }
                 }
                 else {
+                    string concat = "";
                     string new_code = "";
                     foreach (var line in template.code.Split("\n"))
                     {
@@ -123,7 +121,6 @@ namespace FastCode.helpers
 
                         string type = line.Substring(0, 1);
                         string code = line.Remove(0, 1);
-                        string concat = "";
 
                         if (type == " ")
                         {
@@ -137,7 +134,8 @@ namespace FastCode.helpers
                         else if (type == "^")
                         {
                             concat += code;
-                            new_code += ReplaceCode.ByEntityList(this.Project, code);
+                            new_code += ReplaceCode.ByEntityList(this.Project, concat);
+                            concat = "";
                         }
                     }
 

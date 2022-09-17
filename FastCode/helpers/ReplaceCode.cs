@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,48 +29,22 @@ namespace FastCode.helpers
             return !string.IsNullOrEmpty(GetExistingitem(line, fields));
         }
 
-        private static string ReplaceFieldPk(string line, List<EntityField> fields)
+        
+
+        private static string ReplaceByProperty(string line, string property, string value)
         {
-            string value = fields.FirstOrDefault(q => q.type == "pk")?.name;
-
-            if (line.Contains("[pk](lower)"))
-            {
-                line = line.Replace("[pk](lower)", value.ToLower());
+            if (line.Contains("[" + property + "](lower)")) {
+                line = line.Replace("["+property+"](lower)", value.ToLower());
             }
-
-            if (line.Contains("[pk](upper)"))
+            if (line.Contains("[" + property + "](upper)"))
             {
-                line = line.Replace("[pk](upper)", value.ToUpper());
+                line = line.Replace("[" + property + "](upper)", value.ToLower());
             }
-
-            if (line.Contains("[pk](camel)"))
+            if (line.Contains("[" + property + "](camel)"))
             {
-                value = System.Text.Json.JsonNamingPolicy.CamelCase.ConvertName(value);
-                line = line.Replace("[pk](camel)", value);
+                line = line.Replace("[" + property + "](camel)", value.ToLower());
             }
-
-            return line.Replace("[pk]", value);
-        }
-
-        private static string ReplaceFieldName(string line, string value)
-        {
-            if (line.Contains("[field](lower)") || line.Contains("[field.name](lower)"))
-            {
-                line = line.Replace("[field](lower)", value.ToLower()).Replace("[field.name](lower)", value.ToLower());
-            }
-
-            if (line.Contains("[field](upper)") || line.Contains("[field.name](upper)"))
-            {
-                line = line.Replace("[field](upper)", value.ToUpper()).Replace("[field.name](upper)", value.ToUpper());
-            }
-
-            if (line.Contains("[field](camel)") || line.Contains("[field.name](camel)"))
-            {
-                value = System.Text.Json.JsonNamingPolicy.CamelCase.ConvertName(value);
-                line = line.Replace("[field](camel)", value).Replace("[field.name](camel)", value);
-            }
-
-            return line.Replace("[field]", value).Replace("[field.name]", value);
+            return line.Replace("["+property+"]", value).Replace("["+property+"]", value);
         }
 
         public static string ByEntity(Entity entity, ProjectScheme project, string line)
@@ -85,7 +60,8 @@ namespace FastCode.helpers
                 }
                 else if (existing == "[entity]" || existing == "[entity.name]")
                 {
-                    line = line.Replace("[entity]", entity.name).Replace("[entity.name]", entity.name);
+                    line = ReplaceByProperty(line, "entity", entity.name);
+                    line = ReplaceByProperty(line, "entity.name", entity.name);
                 }
                 else if (existing == "[entity.title]")
                 {
@@ -101,14 +77,15 @@ namespace FastCode.helpers
                 }
                 else if (existing == "[pk]")
                 {
-                    line = ReplaceFieldPk(line, entity.fields);
+                    line = ReplaceByProperty(line, "pk", entity.fields.FirstOrDefault(q => q.type == "pk")?.name);
                 }
                 else if (existing == "[field]" || existing == "[field.name]")
                 {
                     var fields = entity.fields.Where(q => q.type != "pk").ToList();
                     if (fields.Count >= 1)
                     {
-                        line = ReplaceFieldName(line, fields[0].name);
+                        line = ReplaceByProperty(line, "field", fields[0].name);
+                        line = ReplaceByProperty(line, "field.name", fields[0].name);
                     }
                 }
                 else
@@ -152,7 +129,8 @@ namespace FastCode.helpers
                         string existing = GetExistingitem(new_line, SearchFields);
                         if (existing == "[field]" || existing == "[field.name]")
                         {
-                            new_line = ReplaceFieldName(new_line, field.name);
+                            new_line = ReplaceByProperty(new_line, "field", field.name);
+                            new_line = ReplaceByProperty(new_line, "field.name", field.name);
                         }
                         else if (existing == "[field.title]")
                         {
@@ -164,7 +142,7 @@ namespace FastCode.helpers
                         }
                         else if (existing == "[field.type]")
                         {
-                            new_line = new_line.Replace("[field.type]", field.type);
+                            new_line = ReplaceByProperty(new_line, "field.type", field.type);
                         }
                         else if (existing == "[field.role]")
                         {
@@ -268,7 +246,8 @@ namespace FastCode.helpers
                     }
                     else if (existing == "[entity]" || existing == "[entity.name]")
                     {
-                        new_line = new_line.Replace("[entity]", entity.name).Replace("[entity.name]", entity.name);
+                        new_line = ReplaceByProperty(new_line, "entity", entity.name);
+                        new_line = ReplaceByProperty(new_line, "entity.name", entity.name);
                     }
                     else if (existing == "[entity.title]")
                     {
@@ -284,14 +263,15 @@ namespace FastCode.helpers
                     }
                     else if (existing == "[pk]")
                     {
-                        new_line = ReplaceFieldPk(new_line, entity.fields);
+                        new_line = ReplaceByProperty(new_line, "pk", entity.fields.FirstOrDefault(q => q.type == "pk")?.name);
                     }
                     else if (existing == "[field]" || existing == "[field.name]")
                     {
                         var fields = entity.fields.Where(q => q.type != "pk").ToList();
                         if (fields.Count >= 1)
                         {
-                            new_line = ReplaceFieldName(new_line, fields[0].name);
+                            new_line = ReplaceByProperty(new_line, "field", fields[0].name);
+                            new_line = ReplaceByProperty(new_line, "field.name", fields[0].name);
                         }
                     }
                     else

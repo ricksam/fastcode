@@ -1,0 +1,24 @@
+{
+  "name": "Repository",
+  "fields": [
+    {
+      "name": "comma",
+      "type": {
+        "number": ",",
+        "value": ",",
+        "text": ",",
+        "bool": ",",
+        "date": ",",
+        "time": ",",
+        "file": ",",
+        "password": ",",
+        "fk": ","
+      },
+      "role": {
+        "first": true,
+        "outhers": true
+      }
+    }
+  ],
+  "code": " using System.Linq;\n using [namespace].Repositories.Entities;\n using [namespace].Repositories.Generics;\n \n namespace [namespace].Repositories\n {\n     public class [entity]Repository : RepositoryBase<[entity]>\n     {\n         public [entity]Repository(Context context) : base(context)\n         {\n         }\n \n         public override int Insert([entity] entity)\n         {\n             base.Insert(entity);\n \n             return this.Context.Query<int>(\n                 this.Context.PrepareInsert(\n                     @\"insert into [entity] (\n*                        [field][comma]\n                         ) {0} values (\n*                        @[field][comma]\n                     ) {1}\", \"Id\"), entity).FirstOrDefault();\n         }\n \n         public override int Update([entity] entity)\n         {\n             base.Update(entity);\n \n             return this.Context.Execute(\n                 @\"update [entity] set \n*                    [field]=@[field][comma]\n                 where Id = @Id\", entity);\n         }\n     }\n }\n \n"
+}

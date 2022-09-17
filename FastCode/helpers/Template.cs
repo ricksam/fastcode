@@ -44,5 +44,10 @@ namespace FastCode.helpers
         public string name { get; set; }
         public List<TemplateField> fields { get; set; } = new List<TemplateField>();
         public string code { get; set; }
+
+        public override string ToString()
+        {
+            return name;
+        }
     }
 }

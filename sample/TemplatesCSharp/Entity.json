@@ -1,0 +1,25 @@
+{
+  "name": "Entity",
+  "fields": [
+    {
+      "name": "field.cstype",
+      "type": {
+        "number": "int",
+        "value": "decimal",
+        "text": "string",
+        "bool": "bool",
+        "date": "DateTime",
+        "time": "string",
+        "file": "string",
+        "password": "string",
+        "fk": "int"
+      },
+      "role": {
+        "first": true,
+        "last": true,
+        "outhers": true
+      }
+    }
+  ],
+  "code": " using System;\n using System.Collections.Generic;\n using System.Linq;\n using System.Threading.Tasks;\n using [namespace].Repositories.Generics;\n using [namespace].Repositories.Interfaces;\n \n namespace [namespace].Repositories.Entities\n {\n     public class [entity] : EntityBase, IEntity\n     {\n         public int [pk] { get; set; }\n*        public [field.cstype] [field] { get; set; }\n     }\n }\n \n"
+}

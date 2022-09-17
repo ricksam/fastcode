@@ -1,0 +1,5 @@
+{
+  "name": "controller",
+  "fields": [],
+  "code": " const [entity]Service = require('../core/services/[entity]Service')\n \n module.exports = class [entity]Controller{\n   static get(req, res, next){\n     const [pk] = req.params.[pk](camel)\n \n     [entity]Service.get([pk])\n       .then(data => res.status(200).send(data))\n       .catch(next)\n   }\n \n   static list(req, res, next){\n     [entity]Service.list()\n       .then(data => res.status(200).send(data))\n       .catch(next)\n   }\n \n   static save(req, res, next){\n     [entity]Service.save(req.body)\n       .then(data => res.status(200).send(data))\n       .catch(err => res.status(202).send(err))\n   }\n \n   static delete(req, res, next){\n     [entity]Service.delete(req.params.[pk](camel))\n       .then(data => res.status(200).send(data))\n       .catch(next)\n   }\n }\n \n"
+}

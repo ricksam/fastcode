@@ -1,0 +1,5 @@
+{
+  "name": "service",
+  "fields": [],
+  "code": " const [entity]Repository = require('../repositories/[entity]Repository')\n \n module.exports = class [entity]Service {\n   static async get([pk]) {\n     return [entity]Repository.get([pk])\n   }\n \n   static async list() {\n     return [entity]Repository.list()\n   }\n \n   static async save(entity) {\n     try {\n       [entity]Repository.save(entity);\n       return { success: true };\n     } catch (err) {\n       return { success: false, message: err.message };\n     }\n   }\n \n   static async delete([pk]) {\n     try {\n       [entity]Repository.delete([pk])\n       return { success: true };\n     } catch (err) {\n       return { success: false, message: err.message };\n     }\n   }\n }\n \n"
+}
