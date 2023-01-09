@@ -1,0 +1,254 @@
+{
+  "name": "WebApplication1",
+  "database": "",
+  "language": "",
+  "entities": [
+    {
+      "title": "Cadasro de Clientes",
+      "name": "Cliente",
+      "fields": [
+        {
+          "title": "Id",
+          "name": "Id",
+          "placeholder": "Id",
+          "type": "pk",
+          "size": "2"
+        },
+        {
+          "title": "Nome",
+          "name": "Nome",
+          "placeholder": "nome completo",
+          "type": "text",
+          "size": "10"
+        },
+        {
+          "title": "Email",
+          "name": "Email",
+          "placeholder": "email@email.com",
+          "type": "text",
+          "size": "6",
+          "role": ""
+        },
+        {
+          "title": "Telefone",
+          "name": "Telefone",
+          "placeholder": "(00) 000000000",
+          "type": "text",
+          "size": "6",
+          "role": "phone"
+        },
+        {
+          "title": "CEP",
+          "name": "CEP",
+          "placeholder": "00000-000",
+          "type": "text",
+          "size": "6",
+          "role": "zip"
+        },
+        {
+          "title": "CPF",
+          "name": "CPF",
+          "placeholder": "000.000.000-00",
+          "type": "text",
+          "size": "6",
+          "role": "cpf"
+        },
+        {
+          "title": "Ativo",
+          "name": "Ativo",
+          "placeholder": "Ativo",
+          "type": "bool",
+          "size": "6"
+        }
+      ]
+    },
+    {
+      "title": "Cadastro de Produtos",
+      "name": "Produto",
+      "fields": [
+        {
+          "title": "Id",
+          "name": "Id",
+          "placeholder": "Id",
+          "type": "pk",
+          "size": "2"
+        },
+        {
+          "title": "Nome",
+          "name": "Nome",
+          "placeholder": "Nome",
+          "type": "text",
+          "size": "6"
+        },
+        {
+          "title": "Valor",
+          "name": "Valor",
+          "placeholder": "Valor",
+          "type": "value",
+          "size": "6"
+        },
+        {
+          "title": "Estoque",
+          "name": "Estoque",
+          "placeholder": "Estoque",
+          "type": "value",
+          "size": "6"
+        }
+      ]
+    },
+    {
+      "title": "Vendas",
+      "name": "Venda",
+      "fields": [
+        {
+          "title": "Id",
+          "name": "Id",
+          "placeholder": "Id",
+          "type": "pk",
+          "size": "12"
+        },
+        {
+          "title": "Cliente",
+          "name": "IdCliente",
+          "placeholder": "Cliente",
+          "type": "Cliente",
+          "size": "12",
+          "role": "nome"
+        },
+        {
+          "title": "Produto",
+          "name": "IdProduto",
+          "placeholder": "Produto",
+          "type": "Produto",
+          "size": "12",
+          "role": "nome"
+        },
+        {
+          "title": "Quantidade",
+          "name": "Quantidade",
+          "placeholder": "Quantidade",
+          "type": "value",
+          "size": "6"
+        },
+        {
+          "title": "Total",
+          "name": "Total",
+          "placeholder": "Total",
+          "type": "value",
+          "size": "6"
+        }
+      ]
+    },
+    {
+      "title": "Financeiro",
+      "name": "Financeiro",
+      "fields": [
+        {
+          "title": "Id",
+          "name": "Id",
+          "placeholder": "Id",
+          "type": "pk",
+          "size": "12"
+        },
+        {
+          "title": "Titulo",
+          "name": "Titulo",
+          "placeholder": "Titulo",
+          "type": "value",
+          "size": "6"
+        },
+        {
+          "title": "Nota Fiscal",
+          "name": "NotaFiscal",
+          "placeholder": "Nota Fiscal",
+          "type": "number",
+          "size": "6"
+        },
+        {
+          "title": "Cliente",
+          "name": "IdCliente",
+          "placeholder": "Cliente",
+          "type": "Cliente",
+          "size": "6",
+          "role": "nome"
+        },
+        {
+          "title": "Valor",
+          "name": "Valor",
+          "placeholder": "Valor",
+          "type": "value",
+          "size": "6"
+        }
+      ]
+    },
+    {
+      "title": "Cadastro de Usuário",
+      "name": "Usuario",
+      "fields": [
+        {
+          "title": "Id",
+          "name": "Id",
+          "placeholder": "Id",
+          "type": "pk",
+          "size": "2"
+        },
+        {
+          "title": "Nome",
+          "name": "Nome",
+          "placeholder": "Nome",
+          "type": "text",
+          "size": "12"
+        },
+        {
+          "title": "Email",
+          "name": "Email",
+          "placeholder": "conta@email.com",
+          "type": "text",
+          "size": "6"
+        },
+        {
+          "title": "CPF",
+          "name": "CPF",
+          "placeholder": "CPF",
+          "type": "text",
+          "size": "6",
+          "role": "cpf"
+        },
+        {
+          "title": "Ativo",
+          "name": "Ativo",
+          "placeholder": "Ativo",
+          "type": "bool",
+          "size": "6"
+        }
+      ]
+    },
+    {
+      "title": "Cadastro de Grupo",
+      "name": "Grupo",
+      "fields": [
+        {
+          "title": "Id",
+          "name": "Id",
+          "placeholder": "Id",
+          "type": "pk",
+          "size": "2"
+        },
+        {
+          "title": "Nome",
+          "name": "Nome",
+          "placeholder": "Nome",
+          "type": "text",
+          "size": "6"
+        },
+        {
+          "title": "Descrição",
+          "name": "Descrição",
+          "placeholder": "Descrição",
+          "type": "text",
+          "size": "6"
+        }
+      ]
+    }
+  ]
+}

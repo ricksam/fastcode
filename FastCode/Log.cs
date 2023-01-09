@@ -10,6 +10,8 @@ namespace FastCode
     {
         static int id_show_process = 0;
         static string[] show_process = new string[] { "|", "/", "-", "|", "\\" };
+        static string old_text_process = "";
+
         public static void DefaultColor() {
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.BackgroundColor = ConsoleColor.Black;
@@ -31,7 +33,15 @@ namespace FastCode
 
         public static void Process(string text, ConsoleColor color = ConsoleColor.Gray)
         {
-            string text_process = text + " " + show_process[id_show_process];
+            if (string.IsNullOrEmpty(text)) {
+                return;
+            }
+
+            if (text.Length > 40) {
+                text = text.Substring(0, 40);
+            }
+
+            string text_process = show_process[id_show_process] + " " + text;
             
             id_show_process++;
             if (id_show_process>4) {
@@ -41,8 +51,14 @@ namespace FastCode
             DefaultColor();
 
             Console.ForegroundColor = color;
+            if (!string.IsNullOrEmpty(old_text_process)) {
+                Console.Write("".PadLeft(old_text_process.Length,' '));
+                Console.SetCursorPosition(Console.CursorLeft - old_text_process.Length, Console.CursorTop);
+            }
+
             Console.Write(text_process);
             Console.SetCursorPosition(Console.CursorLeft - text_process.Length, Console.CursorTop);
+            old_text_process = text_process;
 
             DefaultColor();
         }

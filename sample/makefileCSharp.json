@@ -1,13 +1,15 @@
 {
-  "name": "makefile",
+  "name": "makefileCSharp",
   "roles": [
     {
       "template": "CreateTable",
-      "command": "WebApplication1\\WebApplication1.Repositories\\Scripts\\[entity].sql"
+      "command": "WebApplication1\\WebApplication1.Repositories\\Scripts\\[entity].sql",
+      "overwrite": true
     },
     {
       "template": "Entity",
-      "command": "WebApplication1\\WebApplication1.Repositories\\Entities\\[entity].cs"
+      "command": "WebApplication1\\WebApplication1.Repositories\\Entities\\[entity].cs",
+      "overwrite": true
     },
     {
       "template": "Repository",
@@ -31,7 +33,8 @@
     },
     {
       "template": "Layout",
-      "command": "WebApplication1\\WebApplication1\\Views\\Shared\\_Layout.cshtml"
+      "command": "WebApplication1\\WebApplication1\\Views\\Shared\\_Layout.cshtml",
+      "overwrite": true
     }
   ],
   "project": "D:\\PROJECTS\\RckSoftware\\FastCode\\sample\\WebApplication1.json",

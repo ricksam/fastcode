@@ -30,10 +30,10 @@
 				<form class="d-flex" role="search">
 					<input class="form-control me-2" placeholder="Nome do makefile" aria-label="Search"
 						v-model="makefile.name">
-					<button class="btn btn-outline-primary me-2" type="button" @click="loadFile()">Load</button>
+					<button class="btn btn-outline-primary me-2" type="button" @click="loadFile()">Abrir</button>
 					<input type="file" id="input_file" class="input-file"
 						style="opacity:0; position:absolute; width:0; height: 0;" onchange="ReadFile(this)" />
-					<button class="btn btn-outline-success" type="button" @click="build">Build</button>
+					<button class="btn btn-outline-success" type="button" @click="build">Salvar</button>
 				</form>
 			</div>
 		</nav>
@@ -54,11 +54,16 @@
 			<p>Indique um template e o endereço da pasta de destino. Para gerar com base nas entidades utilize o comando
 				[entity]</p>
 			<div v-for="(item, index) in makefile.roles" :key="index" class="row my-2">
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<input class="form-control" placeholder="template" v-model="item.template" />
 				</div>
-				<div class="col-md-7">
+				<div class="col-md-6">
 					<input class="form-control" placeholder="gerar" v-model="item.command" />
+				</div>
+				<div class="col-md-2">
+					<div class="form-control bg-light">
+					  <label><input type="checkbox" v-model="item.overwrite" /> Sobrescrever</label>
+					</div>
 				</div>
 				<div class="col-md-1">
 					<button class="btn btn-danger" @click="modalRemoveRole(index)">-</button>

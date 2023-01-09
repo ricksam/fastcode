@@ -2,7 +2,7 @@
   "profiles": {
     "FastCode": {
       "commandName": "Project",
-      "commandLineArgs": "D:\\PROJECTS\\RckSoftware\\FastCode\\sample\\makefile.json -force"
+      "commandLineArgs": "D:\\PROJECTS\\RckSoftware\\FastCode\\sample\\makefileTest.json"
     }
   }
 }

@@ -39,11 +39,12 @@
 				<form class="d-flex" role="search">
 					<input class="form-control me-2" type="search" placeholder="Nome do template" aria-label="Search"
 						v-model="template.name">
-					<button class="btn btn-outline-primary me-2" type="button" @click="loadFile()">Load</button>
-					<button class="btn btn-outline-primary me-2" type="button" @click="prepare()">Prepare</button>
+					<button class="btn btn-outline-primary me-2" type="button" @click="help()">Ajuda</button>
+					<button class="btn btn-outline-primary me-2" type="button" @click="loadFile()">Abrir</button>
+					<button class="btn btn-outline-primary me-2" type="button" @click="prepare()">Preparar</button>
 					<input type="file" id="input_file" class="input-file"
 						style="opacity:0; position:absolute; width:0; height: 0;" onchange="ReadFile(this)" />
-					<button class="btn btn-outline-success" type="button" @click="build">Build</button>
+					<button class="btn btn-outline-success" type="button" @click="build">Salvar</button>
 				</form>
 			</div>
 		</nav>
@@ -196,6 +197,31 @@
 				</div>
 			</div>
 		</div>
+		<!-- Modal Help -->
+		<div class="modal fade" id="modalHelp" tabindex="-1" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+					<h5 class="modal-title">Tipos de linhas</h5>
+					</div>
+					<div class="modal-body">
+						
+						<ul class="list-group">
+							<li class="list-group-item">' ' - Linha normal</li>
+							<li class="list-group-item">'+' - Adicionar linha para navegação</li>
+							<li class="list-group-item">'^' - Navega por todas as entidades</li>
+							<li class="list-group-item">'*' - Navega por todos os campos da entidade exceto pk</li>
+							<li class="list-group-item">'$' - Navega por todos os campos da entidade exceto pk e fk</li>
+							<li class="list-group-item">'#' - Navega pelas chaves primárias</li>
+							<li class="list-group-item">'@' - Navega pelas chaves estrangeiras</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 
@@ -258,6 +284,9 @@
 				}
 			},
 			methods: {
+				help(){
+					$("#modalHelp").modal('show');
+				},
 				loadFile() {
 					$("#input_file").val('');
 					$("#input_file").trigger('click');

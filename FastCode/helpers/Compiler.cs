@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using FastCode.Models;
 
-namespace FastCode.helpers
+namespace FastCode.Helpers
 {
     public class Compiler
     {
@@ -57,11 +58,15 @@ namespace FastCode.helpers
             }
         }
 
-        public void Build(bool force)
+        public void Build()
         {
             foreach (var role in this.Makefile.roles)
             {
                 Template template = this.Templates.FirstOrDefault(q => q.name == role.template);
+
+                if (template == null) {
+                    throw new Exception(role.template+" não encontrado");
+                }
 
                 if (role.command.Contains("["))
                 {
@@ -81,7 +86,7 @@ namespace FastCode.helpers
 
                             string type = line.Substring(0, 1);
                             string code = line.Remove(0, 1);
-                            
+
 
                             if (type == " ")
                             {
@@ -89,24 +94,47 @@ namespace FastCode.helpers
                             }
                             else if (type == "+")
                             {
-                                concat += code+ "\n";
+                                concat += code + "\n";
                                 continue;
                             }
-                            else if (type == "*")
-                            {
-                                concat += code;
-                                new_code += ReplaceCode.ByFieldList(template, entity, this.Project, concat);
-                                concat = "";
-                            }
-                            else if (type == "^")
+                            
+                            else if (type == "^") // todas as entidades
                             {
                                 concat += code;
                                 new_code += ReplaceCode.ByEntityList(this.Project, concat);
                                 concat = "";
                             }
+                            else if (type == "*") // todos campos exceto primary keys
+                            {
+                                concat += code;
+                                new_code += ReplaceCode.ByFieldList(template, entity, this.Project, concat);
+                                concat = "";
+                            }
+                            else if (type == "$") // todos campos exceto primary keys e foreign keys
+                            {
+                                concat += code;
+                                new_code += ReplaceCode.ByFieldNotKeys(template, entity, this.Project, concat);
+                                concat = "";
+                            }
+                            else if (type == "#") // todas as primary keys
+                            {
+                                concat += code;
+                                new_code += ReplaceCode.ByPrimaryKeys(template, entity, this.Project, concat);
+                                concat = "";
+                            }
+                            else if (type == "@") // todas as foreign keys
+                            {
+                                concat += code;
+                                new_code += ReplaceCode.ByForeignKeys(template, entity, this.Project, concat);
+                                concat = "";
+                            }
+                            else
+                            {
+                                throw new Exception("linha inválida: " + line + ". As linhas devem começar com ' ', '+', '*', '^', '#' ou '@'");
+                            }
                         }
 
-                        SaveFile(this.Makefile.target + "/" + role.command.Replace("[entity]", entity.name), new_code, force);
+                        SaveFile(this.Makefile.target + "/" + role.command.Replace("[entity]", entity.name), new_code, role.overwrite);
                     }
                 }
                 else {
@@ -139,7 +167,7 @@ namespace FastCode.helpers
                         }
                     }
 
-                    SaveFile(this.Makefile.target + "/" + role.command, new_code, force);
+                    SaveFile(this.Makefile.target + "/" + role.command, new_code, role.overwrite);
                 }
 
             }

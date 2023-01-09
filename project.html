@@ -25,10 +25,10 @@
 				<form class="d-flex" role="search">
 					<input class="form-control me-2" type="search" placeholder="Nome do projeto" aria-label="Search"
 						v-model="project.name">
-					<button class="btn btn-outline-primary me-2" type="button" @click="loadFile()">Load</button>
+					<button class="btn btn-outline-primary me-2" type="button" @click="loadFile()">Abrir</button>
 					<input type="file" id="input_file" class="input-file"
 						style="opacity:0; position:absolute; width:0; height: 0;" onchange="ReadFile(this)" />
-					<button class="btn btn-outline-success" type="button" @click="build">Build</button>
+					<button class="btn btn-outline-success" type="button" @click="build">Salvar</button>
 				</form>
 			</div>
 		</nav>
