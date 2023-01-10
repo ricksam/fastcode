@@ -58,14 +58,15 @@ namespace FastCode.Helpers
             }
         }
 
-        public void Build()
+        public void Build(bool force)
         {
             foreach (var role in this.Makefile.roles)
             {
                 Template template = this.Templates.FirstOrDefault(q => q.name == role.template);
 
-                if (template == null) {
-                    throw new Exception(role.template+" não encontrado");
+                if (template == null)
+                {
+                    throw new Exception(role.template + " não encontrado");
                 }
 
                 if (role.command.Contains("["))
@@ -97,7 +98,7 @@ namespace FastCode.Helpers
                                 concat += code + "\n";
                                 continue;
                             }
-                            
+
                             else if (type == "^") // todas as entidades
                             {
                                 concat += code;
@@ -134,10 +135,11 @@ namespace FastCode.Helpers
                             }
                         }
 
-                        SaveFile(this.Makefile.target + "/" + role.command.Replace("[entity]", entity.name), new_code, role.overwrite);
+                        SaveFile(this.Makefile.target + "/" + role.command.Replace("[entity]", entity.name), new_code, role.overwrite || force);
                     }
                 }
-                else {
+                else
+                {
                     string concat = "";
                     string new_code = "";
                     foreach (var line in template.code.Split("\n"))
@@ -167,20 +169,22 @@ namespace FastCode.Helpers
                         }
                     }
 
-                    SaveFile(this.Makefile.target + "/" + role.command, new_code, role.overwrite);
+                    SaveFile(this.Makefile.target + "/" + role.command, new_code, role.overwrite || force);
                 }
 
             }
         }
 
-        public void SaveFile(string path, string code, bool force) {
+        public void SaveFile(string path, string code, bool force)
+        {
             string code_dir = Path.GetDirectoryName(path);
             if (!Directory.Exists(code_dir))
             {
                 Directory.CreateDirectory(code_dir);
             }
 
-            if (force) {
+            if (force)
+            {
                 File.WriteAllBytes(path, Encoding.Default.GetBytes(code));
                 Log.Text(path, ConsoleColor.Green);
             }
@@ -196,7 +200,7 @@ namespace FastCode.Helpers
                     Log.Text("File exists :" + path, ConsoleColor.DarkRed);
                 }
             }
-            
+
         }
     }
 }

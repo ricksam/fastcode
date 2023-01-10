@@ -189,6 +189,30 @@
 				</div>
 			</div>
 		</div>
+		<!-- Modal Errors -->
+		<div class="modal fade" id="modalErrors" tabindex="-1" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Tipos inválidos</h5>
+					</div>
+					<div class="modal-body">
+						<table class="table">
+							<tr>
+								<th>Entidade</th><th>Campo</th><th>Tipo</th>
+							</tr>
+							<tr v-for="(error, index) in errors">
+								<td>{{error.entity}}</td><td>{{error.field}}</td><td>{{error.type}}</td>
+							</tr>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end modals -->
 	</div>
 
 
@@ -254,7 +278,8 @@
 				add: {
 					entity: '',
 					field: ''
-				}
+				},
+				errors:[]
 			},
 			computed: {
 				selectedEntity() {
@@ -326,12 +351,28 @@
 					$("#input_file").val('');
 					$("#input_file").trigger('click');
 				},
-				build() {
-					if(this.project.name){
-						export2txt(this.project);
-					}else{
-						$("#modalName").modal('show');
+				verifyTypes(){
+					this.errors=[];
+					for(const entity of this.project.entities){
+						for(const field of entity.fields){
+							if(!this.defaultFieldTypes.includes(field.type) && !this.project.entities.map(q=>q.name).includes(field.type)){
+								this.errors.push({entity:entity.name, field:field.name, type:field.type});
+							}
+						}
 					}
+				},
+				build() {
+					this.verifyTypes();
+					if(this.errors.length==0){
+						if(this.project.name){
+							export2txt(this.project);
+						}else{
+							$("#modalName").modal('show');
+						}
+					}else{
+						$("#modalErrors").modal('show');
+					}
+					
 					
 				}
 			}
