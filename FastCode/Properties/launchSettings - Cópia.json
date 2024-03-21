@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FastCode": {
+      "commandName": "Project",
+      "commandLineArgs": "D:\\PROJECTS\\BlueCore\\ConsultingHouse\\docs\\makefileNode.json -force"
+    }
+  }
+}

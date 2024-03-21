@@ -164,7 +164,7 @@ namespace FastCode.Helpers
                         }
 
                         string nameFile = ReplaceCode.ReplaceByProperty(role.command, "entity", entity.name);
-                        //SaveFile(this.Makefile.target + "/" + role.command.Replace("[entity]", entity.name), new_code, role.overwrite || force);
+                        nameFile = nameFile.Replace("[namespace]", this.Project.name);
                         SaveFile(this.Makefile.target + "/" + nameFile, new_code, role.overwrite || force);
                     }
                 }
