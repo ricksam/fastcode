@@ -1,0 +1,185 @@
+<%- include('./partials/layout_header') %>
+
+<div id="app">
+    <loading :active.sync="loading" loader="dots" color="#009688" :can-cancel="false"></loading>
+    <h2>Logs</h2>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Ip</th>
+                    <th>Method</th>
+                    <th>Url</th>
+                    <th>Milliseconds</th>
+                    <th>Ver</th>
+                </tr>
+                <tr>
+                    <th>
+                        <input type="date" class="form-control form-control-sm" v-model="filters.date" @change="search" />
+                    </th>
+                    <th>
+                        <input class="form-control form-control-sm" v-model="filters.ip" @change="search" />
+                    </th>
+                    <th>
+                        <select class="form-control form-control-sm" v-model="filters.method" @change="search">
+                            <option></option>
+                            <option v-for="(item, index) of methods">{{item}}</option>
+                        </select>
+                    </th>
+                    <th>
+                        <select class="form-control form-control-sm" v-model="filters.url" @change="search">
+                            <option></option>
+                            <option v-for="(item, index) of urls">{{item}}</option>
+                        </select>
+                    </th>
+                    <th>
+                        <select class="form-control form-control-sm" v-model="filters.others" @change="search">
+                            <option></option>
+                            <option value="errors">Erros</option>
+                            <option value="fasters">Mais rápidos</option>
+                            <option value="slowers">Mais demorados</option>
+                        </select>
+                    </th>
+                    <th>
+                        <button class="btn btn-sm btn-primary" @click="update">Update</button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item, index) of logs" :class="item.isError?'bg-danger text-white':''">
+                    <td>{{formatDate(item.created)}}</td>
+                    <td>{{item.ip}}</td>
+                    <td>{{item.method}}</td>
+                    <td>{{item.url}}</td>
+                    <td>{{item.ms}} {{item.isError?'(IsError)':''}}</td>
+                    <td><button class="btn btn-sm btn-info" @click="viewLog(index)">Ver</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="logModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label>Data</label>
+                            <input class="form-control form-control-sm" v-model="model.created" readonly />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Ip</label>
+                            <input class="form-control form-control-sm" v-model="model.ip" readonly />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Method</label>
+                            <input class="form-control form-control-sm" v-model="model.method" readonly />
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>Url</label>
+                            <input class="form-control form-control-sm" v-model="model.url" readonly />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Authorization</label>
+                        <textarea rows="2" class="form-control" v-model="model.auth" readonly></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Request</label>
+                        <textarea rows="5" class="form-control" v-model="model.request" readonly></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Response</label>
+                        <textarea rows="5" class="form-control" v-model="model.response" readonly></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <script>
+        const api = axios.create({ baseURL: '<%- APIUrl %>', headers: { 'authorization': 'Bearer '+localStorage.getItem('log_token') }, timeout: 0 });
+        const app = new Vue({
+            el: "#app",
+            data: {
+                loading: false,
+                logs: [],
+                methods:[],
+                urls:[],
+                comboFilters: {},
+                filters: {
+                    ip: "",
+                    method: "",
+                    url:""
+                },
+                model: {}
+            },
+            mounted() {
+                this.load();
+            },
+            methods: {
+                load() {
+                    if (localStorage.getItem("log_token")) {
+                        this.loading = true;
+                        api.get("logs/lasts").then(res => {
+                            this.loading = false;
+                            console.log("lasts:", res.data);
+                            this.logs = res.data
+                        }).catch(err => {
+                            this.loading = false;
+                        })
+                        api.get("logs/methods").then(res => {
+                            console.log("methods", res.data);
+                            this.methods = res.data;
+                        }).catch(err => {
+                            this.loading = false;
+                        })
+                        api.get("logs/urls").then(res => {
+                            this.urls = res.data;
+                        }).catch(err => {
+                            this.loading = false;
+                        })
+                    }
+                    else {
+                        window.location.href = "/dev/logs/login";
+                    }
+                },
+                viewLog(index) {
+                    console.log("viewLog(index):", index);
+                    console.log("this.logs[index]:", this.logs[index].id);
+                    api.get("logs/log/" + this.logs[index].id).then(res => {
+                        this.model = JSON.parse(JSON.stringify(this.logs[index]));
+                        this.model.auth = res.data.auth;
+                        this.model.request = res.data.body;
+                        this.model.response = res.data.response;
+                        $("#logModal").modal("show");
+                    })
+                },
+                update(){
+                    this.load();
+                    this.search();
+                },
+                search() {
+                    this.loading = true;
+                    api.post("logs/search/", this.filters).then(res => {
+                        this.loading = false;
+                        console.log("search", res.data);
+                        this.logs = res.data
+                    })
+                },
+                formatDate(strDate) {
+                    return moment(strDate).format("DD/MM/YYYY HH:mm");
+                }
+            }
+        });
+    </script>
+
+
+<%- include('./partials/layout_footer') %>

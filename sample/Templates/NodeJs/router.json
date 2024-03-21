@@ -1,0 +1,5 @@
+{
+  "name": "router",
+  "fields": [],
+  "code": " const express = require('express')\n const router = express.Router()\n \n const [entity]Controller = require('../../controllers/[entity](camel).controller')\n \n router.get('/:[pk](camel)', [entity]Controller.get)\n router.get('/', [entity]Controller.list)\n router.post('/', [entity]Controller.save)\n router.delete('/:[pk](camel)', [entity]Controller.delete)\n \n module.exports = router"
+}

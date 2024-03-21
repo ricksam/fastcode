@@ -1,0 +1,28 @@
+{
+  "name": "repository",
+  "fields": [
+    {
+      "name": "require.fk",
+      "type": {
+        "fk": "const [field.type] = require(\"../models/[field.type]\")"
+      },
+      "role": {
+        "first": true,
+        "last": true,
+        "outhers": true
+      }
+    },
+    {
+      "name": "populate",
+      "type": {
+        "fk": "                          .populate({path:\"[field](camel)\", model: [field.type]})"
+      },
+      "role": {
+        "first": true,
+        "last": true,
+        "outhers": true
+      }
+    }
+  ],
+  "code": " const Crud = require('../database/crud')\n \n module.exports = class [entity]Repository {\n   static async get ([pk](camel), transaction) {\n     return await Crud.findBy({ [pk](camel) }, '[entity]', transaction)\n   }\n \n   static async list (transaction) {\n     return await Crud.filterBy({  }, '[entity]', transaction)\n   }\n \n   static async save(entity, transaction){\n     return await Crud.save(entity, '[entity]', transaction)\n   }\n \n   static async delete([pk](camel), transaction){\n     return await Crud.delete({ [pk](camel) }, '[entity]', transaction)\n   }\n }\n \n"
+}

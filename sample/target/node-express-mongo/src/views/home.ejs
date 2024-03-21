@@ -1,0 +1,23 @@
+<% include ./partials/header %>
+
+  <div id="app" class="container">
+    <loading :active.sync="loading" loader="dots" color="#009688" :can-cancel="false"></loading>
+    <h1 class="bd-title">Bem-vindo ao projeto node-express</h1>
+  </div>
+
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        loading: false,
+      },
+      mounted() {
+      },
+      methods: {
+
+      },
+    });
+  </script>
+
+
+  <% include ./partials/footer %>

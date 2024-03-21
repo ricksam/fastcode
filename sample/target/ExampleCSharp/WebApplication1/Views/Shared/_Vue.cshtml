@@ -1,0 +1,31 @@
+﻿<!-- https://vuejs.org/v2/guide/deployment.html -->
+<script src="//cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="//unpkg.com/axios/dist/axios.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/vue-loading-overlay@3"></script>
+<script src="//cdn.jsdelivr.net/npm/v-mask/dist/v-mask.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/v-money/dist/v-money.min.js"></script>
+<!--Moment.js-->
+<!--Moment.js-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+<!-- SCRIPT PRIVALLT -->
+<!--script-- type="text/javascript" id="PrivallyApp" src="https://app.privally.global/app.js" pid="77e29b-59dcea" async></--script-->
+<!-- SCRIPT PRIVALLT -->
+<!-- or point to a specific vue-select release -->
+<script src="https://unpkg.com/vue-select@3.0.0"></script>
+<link rel="stylesheet" href="https://unpkg.com/vue-select@3.0.0/dist/vue-select.css">
+<script>
+    Vue.component('loading', VueLoading);
+
+    Vue.use(VueMask.VueMaskPlugin);
+    Vue.directive('mask', VueMask.VueMaskDirective);
+    Vue.filter('VMask', VueMask.VueMaskFilter)
+
+    Vue.use(VMoney.VMoney, {precision: 2})
+
+    //V-Select
+    Vue.component('v-select', VueSelect.VueSelect)
+</script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/vue-loading-overlay@3/dist/vue-loading.css">

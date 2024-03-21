@@ -1,0 +1,54 @@
+{
+  "name": "CreateTable",
+  "fields": [
+    {
+      "name": "field.dbtype",
+      "type": {
+        "number": "int",
+        "value": "numeric(15,4)",
+        "text": "varchar(60)",
+        "bool": "bit",
+        "date": "date",
+        "time": "varchar(5)",
+        "file": "varchar(255)",
+        "password": "varchar(60)",
+        "fk": "int"
+      },
+      "role": {
+        "first": true,
+        "last": true,
+        "outhers": true
+      }
+    },
+    {
+      "name": "comma",
+      "type": {
+        "number": ",",
+        "value": ",",
+        "text": ",",
+        "bool": ",",
+        "date": ",",
+        "time": ",",
+        "file": ",",
+        "password": ",",
+        "fk": ","
+      },
+      "role": {
+        "first": true,
+        "outhers": true
+      }
+    },
+    {
+      "name": "foreign-key",
+      "type": {
+        "fk": "alter table [entity] add constraint fk_[entity]_[field] foreign key ([field]) references [field.type] ([pk]);"
+      },
+      "role": {
+        "first": true,
+        "last": true,
+        "outhers": true
+      }
+    }
+  ],
+  "code": " create table [entity](\n   [pk] integer not null primary key identity,\n*  [field] [field.dbtype][comma]\n );\n@[foreign-key]\n"
+}

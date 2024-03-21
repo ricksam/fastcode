@@ -1,0 +1,31 @@
+</main>
+</div>
+</div>
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+if(!localStorage.getItem("token")){
+  //window.location='/login';
+}else{
+  const user = JSON.parse(localStorage.getItem("user"));
+  document.getElementById('userName').innerHTML=user.name;
+  if(!user.isAdmin){
+    for (const item of document.getElementsByClassName('admin-item')) {
+      item.style.display = 'none';
+    }
+    
+  }
+}
+
+function logout(){
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+  window.location='/login';
+}
+</script>
+
+</body>
+</html>

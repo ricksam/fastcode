@@ -1,0 +1,5 @@
+{
+  "name": "routes.api",
+  "fields": [],
+  "code": " const express = require('express')\n const router = express.Router()\n \n^router.use('/[entity](camel)', require('./[entity](camel).route'))\n \n router.use('/logs', require('../logs/logs.route'))\n router.use('/dashboard', require('./dashboard.route'))\n \n module.exports = router\n \n"
+}

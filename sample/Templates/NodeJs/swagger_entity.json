@@ -1,0 +1,43 @@
+{
+  "name": "swagger_entity",
+  "fields": [
+    {
+      "name": "fieldType",
+      "type": {
+        "number": "number",
+        "value": "number",
+        "text": "string",
+        "bool": "boolean",
+        "date": "string",
+        "time": "string",
+        "file": "string",
+        "password": "string",
+        "fk": "number"
+      },
+      "role": {
+        "first": true,
+        "last": true,
+        "outhers": true
+      }
+    },
+    {
+      "name": "comma",
+      "type": {
+        "number": ",",
+        "value": ",",
+        "text": ",",
+        "bool": ",",
+        "date": ",",
+        "time": ",",
+        "file": ",",
+        "password": ",",
+        "fk": ","
+      },
+      "role": {
+        "first": true,
+        "outhers": true
+      }
+    }
+  ],
+  "code": "               {\n                 \"[pk]\": {\n                   \"type\": \"number\"\n                 },\n+                \"[field]\": {\n+                  \"type\": \"[fieldType]\",\n+                  \"description\": \"[field]\"\n*                }[comma]\n               }\n"
+}

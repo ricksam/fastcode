@@ -1,0 +1,115 @@
+{
+  "name": "ViewIndex",
+  "fields": [
+    {
+      "name": "fk.list",
+      "type": {
+        "fk": "[field.type](camel)s: [],"
+      },
+      "role": {
+        "first": true,
+        "last": true,
+        "outhers": true
+      }
+    },
+    {
+      "name": "fk.load",
+      "type": {
+        "fk": "                    api.get(\"[field.type]\").then(res => {\n                      this.[field.type](camel)s = res.data;\n                    });"
+      },
+      "role": {
+        "last": true,
+        "first": true,
+        "outhers": true
+      }
+    },
+    {
+      "name": "form.control",
+      "type": {
+        "number": "                        <input type=\"[field.type]\" class=\"form-control  form-control-sm\" v-model=\"form.[field](camel)\" placeholder=\"[field.placeholder]\" />",
+        "value": "                        <input type=\"text\" class=\"form-control  form-control-sm\" v-model=\"form.[field](camel)\" placeholder=\"[field.placeholder]\" />",
+        "text": "                        <input type=\"text\" [<[field.role]>] class=\"form-control  form-control-sm\" v-model=\"form.[field](camel)\" placeholder=\"[field.placeholder]\" />",
+        "bool": "                        <div class=\"form-check\">\n                            <input class=\"form-check-input\" type=\"checkbox\" id=\"cb[field]\" v-model=\"form.[field](camel)\">\n                            <label class=\"form-check-label\" for=\"cb[field]\">[field.title]</label>\n                        </div>",
+        "date": "                        <input type=\"[field.type]\" class=\"form-control  form-control-sm\" v-model=\"form.[field](camel)\" placeholder=\"[field.placeholder]\" />",
+        "time": "                        <input type=\"[field.type]\" class=\"form-control  form-control-sm\" v-model=\"form.[field](camel)\" placeholder=\"[field.placeholder]\" />",
+        "file": "                        <input type=\"[field.type]\" class=\"form-control  form-control-sm\" v-model=\"form.[field](camel)\" placeholder=\"[field.placeholder]\" />",
+        "password": "                        <input type=\"[field.type]\" class=\"form-control  form-control-sm\" v-model=\"form.[field](camel)\" />",
+        "fk": "                        <select class=\"form-control form-control-sm\" v-model=\"form.[field](camel)\">\n                            <option v-for=\"(item, index) in [field.type](camel)s\" :key=\"index\" :value=\"item.id\">{{item.[field.role](camel)}}</option>\n                        </select>"
+      },
+      "role": {
+        "first": true,
+        "last": true,
+        "outhers": true
+      }
+    },
+    {
+      "name": "<zip>",
+      "type": {
+        "text": "v-mask=\"'#####-###'\""
+      },
+      "role": {
+        "first": true,
+        "last": true,
+        "outhers": true
+      }
+    },
+    {
+      "name": "<phone>",
+      "type": {
+        "text": "v-mask=\"'(##) #####-####'\""
+      },
+      "role": {
+        "first": true,
+        "last": true,
+        "outhers": true
+      }
+    },
+    {
+      "name": "<cpf>",
+      "type": {
+        "text": "v-mask=\"'###.###.###-##'\""
+      },
+      "role": {
+        "first": true,
+        "last": true,
+        "outhers": true
+      }
+    },
+    {
+      "name": "<cnpj>",
+      "type": {
+        "text": "v-mask=\"'##.###.###/####-##'\""
+      },
+      "role": {
+        "first": true,
+        "last": true,
+        "outhers": true
+      }
+    },
+    {
+      "name": "<>",
+      "type": {},
+      "role": {}
+    },
+    {
+      "name": "tr.field",
+      "type": {
+        "fk": "display(item.[field](camel), [field.type](camel)s, '[field.role](camel)')",
+        "number": "item.[field](camel)",
+        "value": "item.[field](camel)",
+        "text": "item.[field](camel)",
+        "bool": "item.[field](camel)",
+        "date": "item.[field](camel)",
+        "time": "item.[field](camel)",
+        "file": "item.[field](camel)",
+        "password": "item.[field](camel)"
+      },
+      "role": {
+        "outhers": true,
+        "last": true,
+        "first": true
+      }
+    }
+  ],
+  "code": " @{\n     Layout = \"~/Views/Shared/_Layout.cshtml\";\n }\n \n <div id=\"app\">\n     <loading :active.sync=\"loading\" loader=\"dots\" color=\"#009688\" :can-cancel=\"false\"></loading>\n     <h1 class=\"my-3\" id=\"content\">[entity.title]</h1>\n     <div class=\"row\">\n         <div class=\"my-1 col-md-4\">\n             <input class=\" form-control form-control-sm\" placeholder=\"buscar\" v-model=\"search\" />\n         </div>\n         <div class=\"my-1 col-md-8\">\n             <button class=\"float-end btn btn-sm btn-primary\" @@click=\"novo()\">Adicionar</button>\n         </div>\n     </div>\n \n     <div class=\"table-responsive\">\n         <table class=\"table table-striped\">\n             <thead>\n                 <tr>\n                     <th>[pk]</th>\n*                    <th>[field]</th>\n                     <th></th>\n                     <th></th>\n                 </tr>\n             </thead>\n             <tbody>\n                 <tr v-for=\"(item, index) in itemsFiltreds\" :key=\"index\">\n                     <td>{{item.[pk](camel)}}</td>\n*                    <td>{{[tr.field]}}</td>\n                     <td>\n                         <button class=\"btn btn-sm btn-warning\" @@click=\"editar(index)\">Editar</button>\n                     </td>\n                     <td>\n                         <button class=\"btn btn-sm btn-danger\" @@click=\"desejaRemover(index)\">Remover</button>\n                     </td>\n                 </tr>\n             </tbody>\n         </table>\n     </div>\n \n     <!-- Modal -->\n     <div class=\"modal fade\" id=\"editModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"editModalLabel\" aria-hidden=\"true\" data-backdrop=\"static\">\n         <div class=\"modal-dialog\" role=\"document\">\n             <div class=\"modal-content\">\n                 <!--div class=\"modal-header\">\n                     <h5 class=\"modal-title\" id=\"editModalLabel\">[entity]</h5>\n                 </div-->\n                 <div class=\"modal-body row\">\n+                    <div class=\"col-sm-[field.size] my-2\">\n+                        <label>[field.title]</label>\n+[form.control]\n*                    </div>\n                     <div v-if=\"error\" class=\"alert alert-danger\">\n                         {{error}}\n                         <button type=\"button\" class=\"float-end btn-close\" data-dismiss=\"alert\" aria-label=\"Close\"></button>\n                     </div>\n                 </div>\n                 <div class=\"modal-footer\">\n                     <button type=\"button\" class=\"btn btn-sm btn-secondary\" data-dismiss=\"modal\">Fechar</button>\n                     <button type=\"button\" class=\"btn btn-sm btn-primary\" @@click=\"salvar()\">Salvar</button>\n                 </div>\n             </div>\n         </div>\n     </div>\n \n     <!-- Modal -->\n     <div class=\"modal fade\" id=\"removeModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"removeModalLabel\" aria-hidden=\"true\" data-backdrop=\"static\">\n         <div class=\"modal-dialog\" role=\"document\">\n             <div class=\"modal-content\">\n                 <!--div class=\"modal-header\">\n                     <h5 class=\"modal-title\" id=\"removeModalLabel\">Remover empresa</h5>\n                 </div-->\n                 <div class=\"modal-body\">\n                     Tem certeza que deseja remover o registro:\n                     <input class=\"my-2 form-control  form-control-sm\" v-model=\"form.[field.name](camel)\" disabled=\"disabled\" />\n                     <div v-if=\"error\" class=\"alert alert-danger\">\n                         {{error}}\n                         <button type=\"button\" class=\"float-end btn-close\" data-dismiss=\"alert\" aria-label=\"Close\"></button>\n                     </div>\n                 </div>\n                 <div class=\"modal-footer\">\n                     <button type=\"button\" class=\"btn btn-sm btn-secondary\" data-dismiss=\"modal\">Fechar</button>\n                     <button type=\"button\" class=\"btn btn-sm btn-danger\" @@click=\"remover()\">Remover</button>\n                 </div>\n             </div>\n         </div>\n     </div>\n </div>\n \n \n @section Scripts{\n     <script>\n         const api = axios.create({ baseURL: '@(ViewBag.site)/api/', headers: { 'token': localStorage.getItem('token') }, timeout: 0 });\n         const app = new Vue({\n             el: \"#app\",\n             data: {\n                 loading: false,\n                 items: [],\n@                [fk.list]\n                 form: {},\n                 search:'',\n                 error:''\n             },\n             computed: {\n                 itemsFiltreds() {\n                     if (this.search) {\n                         return this.items.filter(q => q.[field.name](camel).toLowerCase().includes(this.search.toLowerCase()));\n                     } else {\n                         return this.items;\n                     }\n                 }\n             },\n             mounted() {\n                 this.load();\n             },\n             methods: {\n                 load() {\n@[fk.load]\n                     this.listar();\n                 },\n                 formatDate(strDate) {\n                     return moment(strDate).format(\"DD/MM/YYYY HH:mm\");\n                 },\n                 listar() {\n                     this.loading=true;\n                     api.get(\"[entity]\").then(res => {\n                         this.loading=false;\n                         this.items = res.data;\n                     })\n                 },\n                display(id, list, property) {\n                    const model = list.find(q => q.id == id);\n                    return model ? model[property] : \"\";\n                },\n                 novo() {\n                     this.error = '';\n                     this.form = { ativo: true }\n                     $(\"#editModal\").modal(\"show\");\n                 },\n                 editar(index) {\n                     this.error = '';\n                     this.form = JSON.parse(JSON.stringify(this.items[index]));\n                     $(\"#editModal\").modal(\"show\");\n                 },\n                 desejaRemover(index) {\n                     this.error = '';\n                     this.form = JSON.parse(JSON.stringify(this.items[index]));\n                     $(\"#removeModal\").modal(\"show\");\n                 },\n                 remover() {\n                     api.delete(\"[entity]/\" + this.form.[pk](camel)).then(res => {\n                         if (res.data.success) {\n                             this.listar();\n                             $(\"#removeModal\").modal(\"hide\");\n                         } else {\n                             this.error = res.data.message;\n                         }\n                     })\n                 },\n                 salvar() {\n                     api.post(\"[entity]\", this.form).then(res => {\n                         if (res.data.success) {\n                             $(\"#editModal\").modal(\"hide\");\n                             this.listar();\n                         } else {\n                             this.error = res.data.message;\n                         }\n                     })\n                 }\n             }\n         });\n     </script>\n }\n"
+}

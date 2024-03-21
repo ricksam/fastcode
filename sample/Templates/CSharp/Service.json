@@ -1,0 +1,5 @@
+{
+  "name": "Service",
+  "fields": [],
+  "code": " using [namespace].Repositories;\n using [namespace].Repositories.Entities;\n using [namespace].Services.Generics;\n using [namespace].Services.Interfaces;\n \n namespace [namespace].Services\n {\n     public class [entity]Service : ServiceBase<[entity]>, IService\n     {\n         public [entity]Service([entity]Repository repository) : base(repository)\n         {\n         }\n     }\n }\n \n"
+}

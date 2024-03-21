@@ -1,0 +1,87 @@
+<%- include('./partials/header') %>
+
+<div id="app" class="container">
+  <div class="row mt-4">
+      <div v-for="(item, index) in cards" class="col-md-3 mt-4" :key="index">
+          <div class="card">
+              <div class="card-body py-0">
+                  <div class="row p-3"><span class="display-6">{{item.title}}</span></div>
+                  <div class="row p-3 justify-content-center">
+                      <p>
+                          <span class="d-block display-3 text-center">{{item.value}}</span>
+                          <span class="d-block display-6 text-center">{{item.label}}</span>
+                      </p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row mt-4">
+      <div class="col-md-6">
+          <div id="chartPie" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+      </div>
+      <div class="col-md-6">
+          <div id="chartBar" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+      </div>
+  </div>
+</div>
+
+<script>
+  const api = axios.create({ baseURL: '/api/', headers: { 'token': localStorage.getItem('token') }, timeout: 0 });
+  new Vue({
+      el: '#app',
+      data: {
+          items:[],
+      },
+      computed:{
+          cards() {
+              return this.items.map(q => { return { title: q.name, value: q.count, label: 'registros' } });
+          }
+      },
+      methods: {
+          load() {
+              api.get("Dashboard/").then(res => {
+                  console.log("Dashboard/:", res.data);
+                  this.items = res.data;
+                  this.loadCharts();
+              })
+          },
+          loadCharts() {
+              Highcharts.chart('chartPie', {
+                  title: {
+                      text: 'Pie'
+                  },
+                  series: [{
+                      name: 'qtde',
+                      type: 'pie',
+                      data: this.items.map(q => { return [q.name, q.count] })
+                  }]
+              });
+
+              Highcharts.chart('chartBar', {
+                  title: {
+                      text: 'Bars'
+                  },
+                  yAxis: {
+                      title: {
+                          text: 'Qtde'
+                      }
+                  },
+                  xAxis: {
+                      categories: this.items.map(q=>q.name)
+                  },
+                  series: [{
+                      name: 'mensagens',
+                      type: 'column',
+                      data: this.items.map(q => q.count)
+                  }]
+              });
+          }
+      },
+      mounted() { 
+          this.load();
+      }
+  });
+</script>
+
+  <%- include('./partials/footer') %>

@@ -1,0 +1,5 @@
+{
+  "name": "Controller",
+  "fields": [],
+  "code": " using Microsoft.AspNetCore.Mvc;\n using System;\n using System.Collections.Generic;\n using System.Linq;\n using System.Threading.Tasks;\n \n namespace [namespace].Controllers\n {\n     [ApiExplorerSettings(IgnoreApi = true)]\n     [Route(\"/[entity]\")]\n     public class [entity]Controller : Controller\n     {\n         [HttpGet(\"\")]\n         public IActionResult Index()\n         {\n             ViewBag.site = Helpers.HttpUtils.Api(Request);\n             return View();\n         }\n     }\n }\n \n"
+}

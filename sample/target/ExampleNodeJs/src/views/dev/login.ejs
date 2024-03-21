@@ -1,0 +1,53 @@
+<%- include('./partials/layout_center_header') %>
+
+<div id="app" class="form-signin">
+    <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label for="inputUser" class="sr-only">User</label>
+    <input type="text" id="inputUser" class="form-control" placeholder="User" v-model="user" required autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="inputPassword" class="form-control" placeholder="Password" v-model="password" required>
+    <div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" value="remember-me"> Remember me
+        </label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block form-group" @click="login">Sign in</button>
+    <div v-if="error" class="alert alert-danger">{{error}}</div>
+    <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+</div>
+
+    <script>
+        const api = axios.create({ baseURL: '<%- APIUrl %>', timeout: 0 });
+        const app = new Vue({
+            el: "#app",
+            data: {
+                loading: false,
+                user: "",
+                password: "",
+                error:""
+            },
+            methods: {
+                login() {
+                    console.log("invoke login");
+                    localStorage.setItem("log_user", this.user);
+                    
+                    this.loading = true;
+                    api.post("logs/login", { login: this.user, password: this.password }).then(res => {
+                        this.loading = false;
+                        console.log("res.data.token:", res.data.token);
+                        localStorage.setItem("log_token", res.data.token);
+                        window.location = "/dev/logs";
+                    }).catch(error => { 
+                        if (error.response) {
+                            this.error = error.response.data;
+                        } else {
+                            this.error = error.message;
+                        }
+                    })
+                }
+            }
+        });
+    </script>
+
+<%- include('./partials/layout_center_footer') %>

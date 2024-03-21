@@ -1,0 +1,5 @@
+{
+  "name": "routes.api",
+  "fields": [],
+  "code": " const express = require('express')\n const router = express.Router()\n \n^router.use('/[entity]', require('./[entity]'))\n \n module.exports = router\n \n"
+}

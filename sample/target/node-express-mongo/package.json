@@ -1,0 +1,22 @@
+{
+  "name": "nodeapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "debug": "nodemon --inspect src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "author": "Ricksam",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "cors": "^2.8.5",
+    "ejs": "^2.6.2",
+    "express": "^4.18.1",
+    "mongoose": "^6.6.1",
+    "nocache": "^3.0.4",
+    "nodemon": "^2.0.20"
+  }
+}

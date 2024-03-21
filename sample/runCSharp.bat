@@ -1,0 +1,1 @@
+D:\PROJECTS\RckSoftware\FastCode\FastCode\bin\Debug\net5.0\FastCode.exe D:\PROJECTS\RckSoftware\FastCode\sample\makefileCSharp.json -force

@@ -1,0 +1,24 @@
+{
+  "name": "swagger_output",
+  "fields": [
+    {
+      "name": "comma",
+      "type": {
+        "number": ",",
+        "value": ",",
+        "text": ",",
+        "bool": ",",
+        "date": ",",
+        "time": ",",
+        "file": ",",
+        "password": ",",
+        "fk": ","
+      },
+      "role": {
+        "outhers": true,
+        "first": true
+      }
+    }
+  ],
+  "code": " {\n   \"swagger\": \"2.0\",\n   \"info\": {\n     \"version\": \"1.0.0\",\n     \"title\": \"REST API\",\n     \"description\": \"\"\n   },\n   \"host\": \"localhost:3000\",\n   \"basePath\": \"/\",\n   \"schemes\": [\n     \"http\"\n   ],\n   \"securityDefinitions\": {\n     \"bearerAuth\": {\n       \"type\": \"apiKey\",\n       \"name\": \"Authorization\",\n       \"in\": \"header\"\n     }\n   },\n   \"tags\": [\n+    {\n+      \"name\": \"[entity](camel)\",\n+      \"description\": \"[entity]\"\n^    }[comma]\n   ],\n   \"paths\": {\n+    \"/api/[entity](camel)/{id}\": {\n+      \"get\": {\n+        \"tags\": [\n+          \"[entity](camel)\"\n+        ],\n+        \"description\": \"get\",\n+        \"security\": [\n+          {\n+            \"bearerAuth\": []\n+          }\n+        ],\n+        \"parameters\": [\n+          {\n+            \"name\": \"id\",\n+            \"in\": \"header\",\n+            \"type\": \"number\"\n+          }\n+        ],\n+        \"responses\": {\n+          \"200\": {\n+            \"description\": \"OK\"\n+          },\n+          \"400\": {\n+            \"description\": \"Bad Request\"\n+          },\n+          \"401\": {\n+            \"description\": \"Unauthorized\"\n+          }\n+        }\n+      },\n+      \"delete\": {\n+        \"tags\": [\n+          \"[entity](camel)\"\n+        ],\n+        \"description\": \"delete\",\n+        \"security\": [\n+          {\n+            \"bearerAuth\": []\n+          }\n+        ],\n+        \"parameters\": [\n+          {\n+            \"name\": \"id\",\n+            \"in\": \"header\",\n+            \"type\": \"number\"\n+          }\n+        ],\n+        \"responses\": {\n+          \"200\": {\n+            \"description\": \"OK\"\n+          },\n+          \"400\": {\n+            \"description\": \"Bad Request\"\n+          },\n+          \"401\": {\n+            \"description\": \"Unauthorized\"\n+          }\n+        }\n+      }\n+    },\n+    \"/api/[entity](camel)/\": {\n+      \"get\": {\n+        \"tags\": [\n+          \"[entity](camel)\"\n+        ],\n+        \"description\": \"list\",\n+        \"security\": [\n+          {\n+            \"bearerAuth\": []\n+          }\n+        ],\n+        \"responses\": {\n+          \"200\": {\n+            \"description\": \"OK\"\n+          },\n+          \"400\": {\n+            \"description\": \"Bad Request\"\n+          },\n+          \"401\": {\n+            \"description\": \"Unauthorized\"\n+          }\n+        }\n+      },\n+      \"post\": {\n+        \"tags\": [\n+          \"[entity](camel)\"\n+        ],\n+        \"description\": \"save\",\n+        \"security\": [\n+          {\n+            \"bearerAuth\": []\n+          }\n+        ],\n+        \"parameters\": [\n+          {\n+            \"name\": \"obj\",\n+            \"in\": \"body\",\n+            \"schema\": {\n+              \"type\": \"object\",\n+              \"properties\": {{[entity].json}}\n+            }\n+          }\n+        ],\n+        \"responses\": {\n+          \"200\": {\n+            \"description\": \"OK\"\n+          },\n+          \"400\": {\n+            \"description\": \"Bad Request\"\n+          },\n+          \"401\": {\n+            \"description\": \"Unauthorized\"\n+          }\n+        }\n+      }\n^    }[comma]\n   }\n }\n"
+}

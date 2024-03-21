@@ -1,0 +1,24 @@
+{
+  "name": "Repository",
+  "fields": [
+    {
+      "name": "comma",
+      "type": {
+        "number": ",",
+        "value": ",",
+        "text": ",",
+        "bool": ",",
+        "date": ",",
+        "time": ",",
+        "file": ",",
+        "password": ",",
+        "fk": ","
+      },
+      "role": {
+        "first": true,
+        "outhers": true
+      }
+    }
+  ],
+  "code": " using System.Linq;\n using [namespace].Repositories.Entities;\n using [namespace].Repositories.Generics;\n \n namespace [namespace].Repositories\n {\n     public class [entity]Repository : RepositoryBase<[entity]>\n     {\n         public [entity]Repository(Context context) : base(context)\n         {\n         }\n     }\n }\n \n"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "dashboard.repository",
+  "fields": [
+    {
+      "name": "union_all",
+      "type": {
+        "text": "union all"
+      },
+      "role": {
+        "last": false,
+        "first": true,
+        "outhers": true
+      }
+    }
+  ],
+  "code": " const database = require('../database/config.database')\n const Crud = require('../database/crud')\n \n module.exports = class DashboardRepository {\n   static async list (transaction) {\n     const result = await (transaction ? transaction : database).raw(`\n+    select '[entity]' as Name, count(Id) as Count from [[entity]]\n^    [union_all]\n     select 'Membership' as Name, count(Id) as Count from [Membership]\n     union all\n     select 'Company' as Name, count(Id) as Count from [Company]\n     union all\n     select 'Application' as Name, count(Id) as Count from [Application]\n     union all\n     select 'UserCompany' as Name, count(Id) as Count from [UserCompany]\n     union all\n     select 'Chat' as Name, count(Id) as Count from [Chat]\n     union all\n     select 'Message' as Name, count(Id) as Count from [Message]\n     union all\n     select 'Tag' as Name, count(Id) as Count from [Tag]\n     union all\n     select 'MessageTag' as Name, count(Id) as Count from [MessageTag]\n     `,\n       { })\n \n     return Crud.toCamelcase(result);\n   }\n }\n \n \n"
+}

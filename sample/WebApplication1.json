@@ -1,0 +1,68 @@
+{
+  "name": "WebApplication1",
+  "database": "",
+  "language": "",
+  "entities": [
+    {
+      "title": "Usuário",
+      "name": "Usuario",
+      "fields": [
+        {
+          "title": "Id",
+          "name": "Id",
+          "placeholder": "Id",
+          "type": "pk",
+          "size": "2"
+        },
+        {
+          "title": "Nome",
+          "name": "Nome",
+          "placeholder": "Nome",
+          "type": "text",
+          "size": "6"
+        },
+        {
+          "title": "Email",
+          "name": "Email",
+          "placeholder": "Email",
+          "type": "text",
+          "size": "6"
+        },
+        {
+          "title": "Tenant",
+          "name": "Tenant",
+          "placeholder": "Tenant",
+          "type": "pk",
+          "size": "6"
+        },
+        {
+          "title": "Grupo",
+          "name": "Grupo",
+          "placeholder": "Grupo",
+          "type": "Grupo",
+          "size": "6"
+        }
+      ]
+    },
+    {
+      "title": "Grupo de Usuários",
+      "name": "Grupo",
+      "fields": [
+        {
+          "title": "Id",
+          "name": "Id",
+          "placeholder": "Id",
+          "type": "pk",
+          "size": "2"
+        },
+        {
+          "title": "Nome",
+          "name": "Nome",
+          "placeholder": "Nome",
+          "type": "text",
+          "size": "6"
+        }
+      ]
+    }
+  ]
+}

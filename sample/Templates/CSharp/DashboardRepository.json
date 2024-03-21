@@ -1,0 +1,17 @@
+{
+  "name": "DashboardRepository",
+  "fields": [
+    {
+      "name": "union_all",
+      "type": {
+        "text": "\n                union all"
+      },
+      "role": {
+        "last": false,
+        "outhers": true,
+        "first": true
+      }
+    }
+  ],
+  "code": " using System.Collections.Generic;\n using System.Linq;\n using [namespace].Repositories.Generics;\n using [namespace].Repositories.Interfaces;\n using [namespace].Repositories.Models;\n \n namespace [namespace].Repositories\n {\n     public class DashboardRepository:IRepository \n     {\n         public DashboardRepository(Context context)\n         {\n             this.Context = context;\n         }\n \n         private Context Context {  get; set; }\n \n         public List<DashboardItem> List()\n         {\n             return this.Context.Query<DashboardItem>(@\"\n+                select '[entity]' as Name, count(Id) as Count from [[entity]]\n^[union_all]\n             \").ToList();\n         }\n     }\n }\n \n \n"
+}

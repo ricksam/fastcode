@@ -1,0 +1,5 @@
+{
+  "name": "service",
+  "fields": [],
+  "code": " const [entity]Repository = require('../repositories/[entity](camel).repository')\n \n module.exports = class [entity]Service {\n   static async get([pk](camel)) {\n     return await [entity]Repository.get([pk](camel))\n   }\n   static async list () {\n     return await [entity]Repository.list()\n   }\n   static async save(entity) {\n     try {\n       return { success: true, data: await [entity]Repository.save(entity) };\n     } catch (err) {\n       return { success: false, message: err.message };\n     }\n   }\n   static async delete([pk](camel)) {\n     try {\n       await [entity]Repository.delete([pk](camel));\n       return { success: true };\n     } catch (err) {\n       return { success: false, message: err.message };\n     }\n   }\n }\n \n"
+}

@@ -1,0 +1,5 @@
+{
+  "name": "sql_all_tables",
+  "fields": [],
+  "code": "^{{[entity].sql}}\n "
+}

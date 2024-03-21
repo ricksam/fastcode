@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="canonical" href="https://getbootstrap.com/docs/3.3/examples/dashboard/">
+
+	<title>Fast.Code</title>
+
+	<!-- Bootstrap core CSS -->
+	<!-- https://getbootstrap.com/docs/5.2/components/navbar/#nav -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+	<div id="app">
+		<nav class="navbar bg-light">
+			<div class="container-fluid">
+				<a class="navbar-brand">Fast.Code</a>
+				<form class="d-flex" role="search">
+					<input class="form-control me-2" type="search" placeholder="Nome do projeto" aria-label="Search"
+						v-model="project.name">
+					<button class="btn btn-outline-primary me-2" type="button" @click="loadFile()">Abrir</button>
+					<input type="file" id="input_file" class="input-file"
+						style="opacity:0; position:absolute; width:0; height: 0;" onchange="ReadFile(this)" />
+					<button class="btn btn-outline-success" type="button" @click="build">Salvar</button>
+				</form>
+			</div>
+		</nav>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-3 col-md-2">
+					<label class="my-2">Entidades</label>
+					<ul class="list-group">
+						<li v-for="(item, index) in project.entities" :key="index" :class="classEntity(index)"
+							@click="selectEntity(index)">
+							{{item.title}} <span class="float-end badge bg-danger" @click="modalRemoveEntity()">-</span>
+						</li>
+					</ul>
+
+					<div class="input-group my-2">
+						<input type="text" class="form-control" placeholder="Nova entidade" aria-label="Nova entidade"
+							aria-describedby="basic-addon2" v-model="add.entity" v-on:keyup.enter="newEntity()">
+						<button class="btn btn-primary" @click="newEntity()">+</button>
+					</div>
+				</div>
+				<div v-if="selectedEntity" class="col-sm-9 col-md-10">
+					<label class="my-2">Propriedades da entidade</label>
+					<div class="row">
+						<div class="col-sm-6 col-md-4">
+							<div class="input-group">
+								<span class="input-group-text">Título</span>
+								<input type="text" aria-label="Título" class="form-control"
+									v-model="selectedEntity.title">
+							</div>
+							<div class="input-group  my-2">
+								<span class="input-group-text">Nome</span>
+								<input type="text" aria-label="Nome" class="form-control" v-model="selectedEntity.name">
+							</div>
+						</div>
+						<div class="col-sm-12 col-md-12">
+							<label class="my-2">Campos</label>
+							<table class="table">
+								<thead>
+									<tr class="table-primary">
+										<th>Titulo</th>
+										<th>Nome</th>
+										<th>Tipo</th>
+										<th>Regra</th>
+										<th>Ajuda</th>
+										<th>Tamanho</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr v-for="(item, index) in selectedEntity.fields" :key="index">
+										<td><input type="text" class="form-control" v-model="item.title"></td>
+										<td><input type="text" class="form-control" v-model="item.name"></td>
+										<td>
+											<select class="form-control" v-model="item.type">
+												<option v-for="(type, idx_type) in fieldTypes" :key="idx_type">{{type}}
+												</option>
+											</select>
+										</td>
+										<td><input type="text" class="form-control" v-model="item.role"></td>
+										<td><input type="text" class="form-control" v-model="item.placeholder"></td>
+										<td><input type="text" class="form-control" v-model="item.size"></td>
+										<td><button class="btn btn-danger" @click="modalRemoveField(index)">-</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="col-sm-6 col-md-4">
+							<div class="input-group my-2">
+								<input type="text" class="form-control" placeholder="Novo campo" aria-label="Novo campo"
+									aria-describedby="basic-addon2" v-model="add.field" v-on:keyup.enter="newField()">
+								<button class="btn btn-primary" @click="newField()">+</button>
+							</div>
+						</div>
+						<div class="col-sm-12 col-md-12 my-2">
+							<label class=" h3">Exemplo</label>
+							<div class="row">
+								<div class="col-md-8">
+									<div class="card text-bg-light">
+										<div class="card-header">
+											{{selectedEntity.title}}
+										</div>
+										<div class="card-body">
+											<div class="row">
+												<div v-for="(item, index) in selectedEntity.fields.filter(q=>q.type!='pk')" :key="index"
+													:class="classSampleField(item.size)">
+													<div class="input-group my-2">
+														<span class="input-group-text">{{item.title}}</span>
+														<select v-if="item.type=='bool'" class="form-control">
+															<option>Sim</option>
+															<option>Não</option>
+														</select>
+														<input v-else :type="item.type" :aria-label="item.title"
+															:class="'form-control '+item.role"
+															:placeholder="item.placeholder">
+													</div>
+												</div>
+
+											</div>
+											<div class="my-3">
+												<div class="float-start">
+													<button class="btn btn-danger">Excluir</button>
+												</div>
+												<div class="float-end">
+													<button class="btn btn-secondary">Cancelar</button>
+													<button class="btn btn-primary">Salvar</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modal Remove Entity -->
+		<div class="modal fade" id="modalRemoveEntity" tabindex="-1" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div v-if="selectedEntity" class="modal-body">
+						Tem certesa que deseja remover a entidade {{selectedEntity.title}}
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+						<button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+							@click="removeEntity()">Remover</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modal Remove Field -->
+		<div class="modal fade" id="modalRemoveField" tabindex="-1" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div v-if="selectedField" class="modal-body">
+						Tem certesa que deseja remover o campo {{selectedField.title}}
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+						<button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+							@click="removeField()">Remover</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modal Name -->
+		<div class="modal fade" id="modalName" tabindex="-1" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						Informe o nome do arquivo
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modal Errors -->
+		<div class="modal fade" id="modalErrors" tabindex="-1" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Tipos inválidos</h5>
+					</div>
+					<div class="modal-body">
+						<table class="table">
+							<tr>
+								<th>Entidade</th><th>Campo</th><th>Tipo</th>
+							</tr>
+							<tr v-for="(error, index) in errors">
+								<td>{{error.entity}}</td><td>{{error.field}}</td><td>{{error.type}}</td>
+							</tr>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end modals -->
+	</div>
+
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Vue -->
+	<!-- https://vuejs.org/v2/guide/deployment.html -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3"></script>
+	<script src="https://cdn.jsdelivr.net/npm/v-mask/dist/v-mask.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/v-money/dist/v-money.min.js"></script>
+	<!--Moment.js-->
+	<!--Moment.js-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+	<!-- SCRIPT PRIVALLT -->
+	<script type="text/javascript" id="PrivallyApp" src="https://app.privally.global/app.js" pid="77e29b-59dcea"
+		async></script>
+	<!-- SCRIPT PRIVALLT -->
+	<!-- or point to a specific vue-select release -->
+	<script src="https://unpkg.com/vue-select@3.0.0"></script>
+	<link rel="stylesheet" href="https://unpkg.com/vue-select@3.0.0/dist/vue-select.css">
+	<script>
+		Vue.component('loading', VueLoading);
+
+		Vue.use(VueMask.VueMaskPlugin);
+		Vue.directive('mask', VueMask.VueMaskDirective);
+		Vue.filter('VMask', VueMask.VueMaskFilter)
+
+		Vue.use(VMoney.VMoney, { precision: 2 })
+
+		//V-Select
+		Vue.component('v-select', VueSelect.VueSelect)
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3/dist/vue-loading.css">
+	<!-- end Vue -->
+	<script>
+
+		const app = new Vue({
+			el: "#app",
+			data: {
+				databases: ['SQL Server', 'Mongo DB'],
+				languages: ['C#', 'Node JS'],
+				views: ['Bootstrap', 'Next', 'Flax-Box'],
+				defaultFieldTypes: ['pk', 'number', 'value', 'text', 'bool', 'date', 'time', 'file', 'password'],
+				project: {
+					name: '',
+					database: '',
+					language: '',
+					entities: [],
+				},
+				selected: {
+					entity: 0,
+					field: 0
+				},
+				add: {
+					entity: '',
+					field: ''
+				},
+				errors:[]
+			},
+			computed: {
+				selectedEntity() {
+					return this.project.entities[this.selected.entity];
+				},
+				selectedField() {
+					if (this.project.entities[this.selected.entity]) {
+						return this.project.entities[this.selected.entity].fields[this.selected.field];
+					}
+					return null;
+				},
+				fieldTypes() {
+					return [...this.defaultFieldTypes, ...this.project.entities.map(q => q.name)]
+				}
+			},
+			methods: {
+				classEntity(index) {
+					return 'list-group-item ' + (this.selected.entity == index ? 'active' : '');
+				},
+				classField(index) {
+					return 'list-group-item ' + (this.selected.field == index ? 'active' : '');
+				},
+				classSampleField(size) {
+					return 'col-md-' + size;
+				},
+				selectEntity(index) {
+					this.selected.entity = index;
+				},
+				selectField(index) {
+					this.selected.field = index;
+				},
+				newEntity() {
+					this.project.entities.push({
+						title: this.add.entity, name: this.add.entity, fields: [{
+							title: 'Id',
+							name: 'Id',
+							placeholder: 'Id',
+							type: 'pk',
+							size: '2'
+						}]
+					});
+					this.add.entity = '';
+				},
+				modalRemoveEntity() {
+					$('#modalRemoveEntity').modal('show');
+				},
+				removeEntity() {
+					this.project.entities.splice(this.selected.entity, 1);
+				},
+				newField() {
+					this.selectedEntity.fields.push({
+						title: this.add.field,
+						name: this.add.field,
+						placeholder: this.add.field,
+						type: 'text',
+						size: '6'
+					});
+					this.add.field = '';
+				},
+				modalRemoveField(index) {
+					console.log("modalRemoveField:", index);
+					this.selected.field = index;
+					$('#modalRemoveField').modal('show');
+				},
+				removeField() {
+					this.selectedEntity.fields.splice(this.selected.field, 1);
+				},
+				loadFile() {
+					$("#input_file").val('');
+					$("#input_file").trigger('click');
+				},
+				verifyTypes(){
+					this.errors=[];
+					for(const entity of this.project.entities){
+						for(const field of entity.fields){
+							if(!this.defaultFieldTypes.includes(field.type) && !this.project.entities.map(q=>q.name).includes(field.type)){
+								this.errors.push({entity:entity.name, field:field.name, type:field.type});
+							}
+						}
+					}
+				},
+				build() {
+					this.verifyTypes();
+					if(this.errors.length==0){
+						if(this.project.name){
+							export2txt(this.project);
+						}else{
+							$("#modalName").modal('show');
+						}
+					}else{
+						$("#modalErrors").modal('show');
+					}
+					
+					
+				}
+			}
+		});
+		function ReadFile(input_file) {
+			if (input_file.files && input_file.files[0]) {
+				var FR = new FileReader();
+				FR.onload = function (e) {
+					console.log("File", e.target.result);
+					//const decode = atob(e.target.result.replace("data:application/json;base64,", ""));
+					//console.log("decode:", decode);
+					const json = JSON.parse(e.target.result);
+					console.log("Json", json);
+					app.project = json;
+				};
+				/*FR.readAsDataURL(input_file.files[0]);*/
+				FR.readAsText(input_file.files[0]);
+				//console.log("fileJson:", fileJson);
+			}
+		}
+		function export2txt(data) {
+			const a = document.createElement("a");
+			a.href = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], {
+				type: "application/json;charset=iso-8859-1,%EF%BB%BF"
+			}));
+			a.setAttribute("download", app.project.name + ".json");
+			document.body.appendChild(a);
+			a.click();
+			document.body.removeChild(a);
+		}
+	</script>
+</body>
+
+</html>
