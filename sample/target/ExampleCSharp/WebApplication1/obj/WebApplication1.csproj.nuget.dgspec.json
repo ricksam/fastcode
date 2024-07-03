@@ -1,0 +1,96 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\PROJECTS\\RckSoftware\\FastCode\\OnGitHub\\fastcode\\sample\\target\\ExampleCSharp\\WebApplication1\\WebApplication1.csproj": {}
+  },
+  "projects": {
+    "D:\\PROJECTS\\RckSoftware\\FastCode\\OnGitHub\\fastcode\\sample\\target\\ExampleCSharp\\WebApplication1\\WebApplication1.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\PROJECTS\\RckSoftware\\FastCode\\OnGitHub\\fastcode\\sample\\target\\ExampleCSharp\\WebApplication1\\WebApplication1.csproj",
+        "projectName": "WebApplication1",
+        "projectPath": "D:\\PROJECTS\\RckSoftware\\FastCode\\OnGitHub\\fastcode\\sample\\target\\ExampleCSharp\\WebApplication1\\WebApplication1.csproj",
+        "packagesPath": "C:\\Users\\jrick\\.nuget\\packages\\",
+        "outputPath": "D:\\PROJECTS\\RckSoftware\\FastCode\\OnGitHub\\fastcode\\sample\\target\\ExampleCSharp\\WebApplication1\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\jrick\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "D:\\PROJECTS\\RckSoftware\\FastCode\\OnGitHub\\fastcode\\sample\\target\\ExampleCSharp\\FuegoDashboard.Repositories\\WebApplication1.Repositories.csproj": {
+                "projectPath": "D:\\PROJECTS\\RckSoftware\\FastCode\\OnGitHub\\fastcode\\sample\\target\\ExampleCSharp\\FuegoDashboard.Repositories\\WebApplication1.Repositories.csproj"
+              },
+              "D:\\PROJECTS\\RckSoftware\\FastCode\\OnGitHub\\fastcode\\sample\\target\\ExampleCSharp\\FuegoDashboard.Services\\WebApplication1.Services.csproj": {
+                "projectPath": "D:\\PROJECTS\\RckSoftware\\FastCode\\OnGitHub\\fastcode\\sample\\target\\ExampleCSharp\\FuegoDashboard.Services\\WebApplication1.Services.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[5.0.17, )"
+            },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[7.4.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

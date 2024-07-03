@@ -1,0 +1,90 @@
+{
+  "version": 3,
+  "targets": {
+    "net5.0": {}
+  },
+  "libraries": {},
+  "projectFileDependencyGroups": {
+    "net5.0": [
+      "D:\\PROJECTS\\RckSoftware\\FastCode\\OnGitHub\\fastcode\\sample\\target\\ExampleCSharp\\FuegoDashboard.Repositories\\WebApplication1.Repositories.csproj"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\jrick\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\PROJECTS\\RckSoftware\\FastCode\\OnGitHub\\fastcode\\sample\\target\\ExampleCSharp\\WebApplication1.Services\\WebApplication1.Services.csproj",
+      "projectName": "WebApplication1.Services",
+      "projectPath": "D:\\PROJECTS\\RckSoftware\\FastCode\\OnGitHub\\fastcode\\sample\\target\\ExampleCSharp\\WebApplication1.Services\\WebApplication1.Services.csproj",
+      "packagesPath": "C:\\Users\\jrick\\.nuget\\packages\\",
+      "outputPath": "D:\\PROJECTS\\RckSoftware\\FastCode\\OnGitHub\\fastcode\\sample\\target\\ExampleCSharp\\WebApplication1.Services\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\jrick\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net5.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "projectReferences": {
+            "D:\\PROJECTS\\RckSoftware\\FastCode\\OnGitHub\\fastcode\\sample\\target\\ExampleCSharp\\FuegoDashboard.Repositories\\WebApplication1.Repositories.csproj": {
+              "projectPath": "D:\\PROJECTS\\RckSoftware\\FastCode\\OnGitHub\\fastcode\\sample\\target\\ExampleCSharp\\FuegoDashboard.Repositories\\WebApplication1.Repositories.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      }
+    },
+    "frameworks": {
+      "net5.0": {
+        "targetAlias": "net5.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
+      }
+    }
+  },
+  "logs": [
+    {
+      "code": "NU1104",
+      "level": "Error",
+      "message": "Não é possível encontrar o projeto 'D:\\PROJECTS\\RckSoftware\\FastCode\\OnGitHub\\fastcode\\sample\\target\\ExampleCSharp\\FuegoDashboard.Repositories\\WebApplication1.Repositories.csproj'. Verifique se a referência do projeto é válida e se o arquivo de projeto existe.",
+      "libraryId": "D:\\PROJECTS\\RckSoftware\\FastCode\\OnGitHub\\fastcode\\sample\\target\\ExampleCSharp\\FuegoDashboard.Repositories\\WebApplication1.Repositories.csproj",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    }
+  ]
+}

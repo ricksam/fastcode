@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "dgSpecHash": "1MjHdKMyCPTTd3+j1cRDjiUhWFfeFfJzUK5kZ8y9mV/7n0D1+VnX/W3DwMi8PFea+teRrK+EZMD2HxGxNgsiug==",
+  "success": false,
+  "projectFilePath": "D:\\PROJECTS\\RckSoftware\\FastCode\\OnGitHub\\fastcode\\sample\\target\\ExampleCSharp\\WebApplication1.Services\\WebApplication1.Services.csproj",
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "NU1104",
+      "level": "Error",
+      "message": "Não é possível encontrar o projeto 'D:\\PROJECTS\\RckSoftware\\FastCode\\OnGitHub\\fastcode\\sample\\target\\ExampleCSharp\\FuegoDashboard.Repositories\\WebApplication1.Repositories.csproj'. Verifique se a referência do projeto é válida e se o arquivo de projeto existe.",
+      "libraryId": "D:\\PROJECTS\\RckSoftware\\FastCode\\OnGitHub\\fastcode\\sample\\target\\ExampleCSharp\\FuegoDashboard.Repositories\\WebApplication1.Repositories.csproj",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    }
+  ]
+}
